@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
   Image,
-  Dimensions,
   ActivityIndicator,
+  Button,
+  Alert,
+  NetInfo
 } from 'react-native';
 
 class DetailScreen extends Component {
-  static navigationOptions = {
-    title: 'Movie Detail',
-  };
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.title}`,
+    headerTintColor: '#fff',
+    headerStyle: styles.headerStyle,
+    headerTitleStyle: styles.headerTitleStyle,
+  });
 
   constructor() {
     super();
@@ -31,69 +34,80 @@ class DetailScreen extends Component {
       release_date: '',
       revenue: '',
       isLoading: true,
+      key: '',
+      isOnline: null,
     };
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     const id = navigation.getParam('id', 'NO-ID');
-    this.getMovieFromApi(id);
+    this.getKey(id);
+
   }
 
-  getMovieFromApi(id) {
-    return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
+  getKey(id) {
+    return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=f7485fa464693c4a4b1b3e4b580e4d40&append_to_response=videos')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({
-          id: responseJson.id,
-          adult: responseJson.adult,
-          backdrop_path: responseJson.backdrop_path,
-          popularity: responseJson.popularity,
-          budget: responseJson.budget,
-          title: responseJson.title,
-          original_language: responseJson.original_language,
-          vote_average: responseJson.vote_average,
-          vote_count: responseJson.vote_count,
-          tagline: responseJson.tagline,
-          runtime: responseJson.runtime,
-          release_date: responseJson.release_date,
-          revenue: responseJson.revenue,
-          isLoading: false,
-        });
+        if (responseJson.videos.results.length != 0)
+          if (responseJson.videos.results[0].hasOwnProperty("key")) {
+            this.setState({
+              myId: id,
+              title: responseJson.title,
+              key: responseJson.videos.results[0].key,
+              poster_path: responseJson.poster_path,
+              isLoading: false,
+            });
+          }
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
-  render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" style={styles.colorLoading} />
-        </View>
-      )
-    } else {
-      return (
-        <View style={styles.container}>
-          <View style={{flex: 1}}>
-            <Image style={[styles.image, {width: Dimensions.get('window').width}]}
-              source={{uri: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + this.state.backdrop_path}} />
-          </View>
-          <View style={styles.content}>
-            <Text>Title: {this.state.title}</Text>
-            <Text>Language: {this.state.original_language}</Text>
-            <Text>Time: {this.state.runtime} minutes</Text>
-            <Text>Release date: {this.state.release_date}</Text>
-            <Text>Vote: {this.state.vote_count}</Text>
-            <Text>Average: {this.state.vote_average}</Text>
-            <Text>Popularity: {this.state.popularity}</Text>
-          </View>
-        </View>
-      );
+  onClick() {
+    if (this.state.isOnline) {
+      if (this.state.key != '')
+        this.props.navigation.navigate('trailer', { key: this.state.key });
+      else {
+        Alert.alert(
+          'Notification',
+          'This film does not have official trailer',
+          [
+            { text: 'OK', onPress: () => console.log('OK pressed') }
+          ]
+        )
+      }
+    }
+    else {
+     this.alert();
     }
   }
-}
+
+  render() {
+      const { navigate } = this.props.navigation;
+      if (this.state.isLoading) {
+        return (
+          <View style={styles.loading}>
+            <ActivityIndicator size="large" style={styles.colorLoading} />
+          </View>
+        )
+      } else {
+        return (
+          <View style={styles.container}>
+            <View style={{ flex: 1 }}>
+              <Image style={[styles.image]}
+                resizeMode={'contain'}
+                source={{ uri: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + this.state.poster_path }} />
+            </View>
+          </View>
+        );
+      }
+    }
+  }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -102,21 +116,35 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    height: 300,
-  },
-  content: {
-    flex: 1,
-    marginTop: 4,
-    padding: 4,
+    width: null,
+    height: null,
+    resizeMode: 'contain',
+    alignSelf: 'stretch',
+    backgroundColor: '#000'
   },
   loading: {
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
+    backgroundColor: '#fff'
   },
   colorLoading: {
     color: "#0000ff",
   },
+
+  headerStyle: {
+    backgroundColor: '#000',
+    shadowOpacity: 0
+  },
+  headerTitleStyle: {
+    flex: 1,
+    alignSelf: 'center',
+    textAlign: 'center',
+    marginRight: 70,
+    color: '#fefefe',
+    fontFamily: 'MuseoSansRounded-300',
+    fontWeight: '300'
+  }
 });
 
 export default DetailScreen;

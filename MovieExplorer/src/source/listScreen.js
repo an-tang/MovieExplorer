@@ -38,8 +38,8 @@ class ListScreen extends Component {
     return ds.cloneWithRows(data);
   }
 
-  getMoviesFromApi() {
-    return fetch('https://api.themoviedb.org/3/genre/' + 878 + '/movies?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
+  getMoviesFromApi(id) {
+    return fetch('https://api.themoviedb.org/3/genre/' + id + '/movies?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

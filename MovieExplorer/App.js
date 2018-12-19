@@ -5,8 +5,9 @@ import {
   View,
   ListView,
 } from 'react-native';
-// react-navigation hướng dẫn https://reactnavigation.org/docs/en/getting-started.html
+
 import {StackNavigator,} from 'react-navigation';
+import Genre from './src/source/genre.js'
 import ListScreen from './src/source/listScreen.js';
 import DetailScreen from './src/source/detailScreen.js';
 
@@ -18,10 +19,11 @@ export default class App extends Component {
 
 const RootStack = StackNavigator(
   {
+    genre: {screen: Genre},
     listScreen: {screen: ListScreen},
     detailScreen: {screen: DetailScreen}
   },
   {
-    initialRouteName: 'listScreen',
+    initialRouteName: 'genre',
   }
 );

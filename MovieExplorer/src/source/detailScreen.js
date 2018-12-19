@@ -82,31 +82,49 @@ class DetailScreen extends Component {
       }
     }
     else {
-     this.alert();
+      this.alert();
     }
   }
 
   render() {
-      const { navigate } = this.props.navigation;
-      if (this.state.isLoading) {
-        return (
-          <View style={styles.loading}>
-            <ActivityIndicator size="large" style={styles.colorLoading} />
+    const { navigate } = this.props.navigation;
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" style={styles.colorLoading} />
+        </View>
+      )
+    } else {
+      return (
+        <View style={styles.container}>
+          <View style={{ flex: 1 }}>
+            <Image style={[styles.image]}
+              resizeMode={'contain'}
+              source={{ uri: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + this.state.poster_path }} />
           </View>
-        )
-      } else {
-        return (
-          <View style={styles.container}>
-            <View style={{ flex: 1 }}>
-              <Image style={[styles.image]}
-                resizeMode={'contain'}
-                source={{ uri: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + this.state.poster_path }} />
-            </View>
+          <View style={styles.viewButton}>
+            <Button
+              bsSize="lg"
+              title="Trailer"
+              color='green'
+              onPress={this.onClick}
+            />
+            <Button
+              bsSize="lg"
+              title="Information"
+              color='red'
+              onPress={() => {
+                this.state.isOnline ?
+                  navigate('information', { id: this.state.myId, title: this.state.title }) :
+                  this.alert()
+              }}
+            />
           </View>
-        );
-      }
+        </View>
+      );
     }
   }
+}
 
 
 const styles = StyleSheet.create({

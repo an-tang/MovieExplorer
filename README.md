@@ -19,11 +19,11 @@ Tran Xuan Bac 	 - ID: 16520069
 
 |            Name           |                                     Description                                    |
 |:-------------------------:|:----------------------------------------------------------------------------------:|
-|        React Native       |Build Native Mobile Apps using JavaScript and React.                               |
-|  React Native Navigation  |App-wide support for 100% native navigation with an easy cross-platform interface. |
-| React Native vector-icons |Icon source                                                                        |
-|   React Native elements   |Rating stars are from this                                                         |
-|    React Native youtube   |Get trailer from Youtube                                                           |
+|        React Native       |Build Native Mobile Apps using JavaScript and React.                                |
+|  React Native Navigation  |App-wide support for 100% native navigation with an easy cross-platform interface.  |
+| React Native vector-icons |Icon source                                                                         |
+|   React Native elements   |Rating stars are from this                                                          |
+|    React Native youtube   |Get trailers from Youtube                                                           |
 
 # Requirements
 ```

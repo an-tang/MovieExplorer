@@ -38,11 +38,12 @@ $ git clone https://github.com/hoangan1903/MovieExplorer
 Get api key - [TMDB](https://developers.themoviedb.org/3/getting-started/introduction) - [Youtube](https://developers.google.com/youtube/v3/getting-started)
 
 # About this demo
+```
 react-native: v0.57.0
 react-native-vector-icons: v6.0.2
 react-native-youtube: v1.1.0
 react-native-elements: v0.19.1
 react-navigation: v2.18.0
-
+```
 # Contact us
 Email: antanghoang@gmail.com

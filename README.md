@@ -7,9 +7,9 @@ Huynh Tuan Anh
 ```
 **Ourteam**
 ```
-Tang Hoang An 		- ID: 16520020
-Dau Duc Viet Anh 	- ID: 16520029
-Tran Xuan Bac 		- ID: 16520069
+Tang Hoang An 	- ID: 16520020
+Dau Duc Viet Anh - ID: 16520029
+Tran Xuan Bac 	- ID: 16520069
 ```
 # Description
 Discover all kinds of movie information and trailers
@@ -20,16 +20,17 @@ Discover all kinds of movie information and trailers
 
 |            Name           |                                     Description                                    |
 |:-------------------------:|:----------------------------------------------------------------------------------:|
-|        React Native       | Build Native Mobile Apps using JavaScript and React.                               |
-|  React Native Navigation  | App-wide support for 100% native navigation with an easy cross-platform interface. |
-| React Native vector-icons | Icon source                                                                        |
-|   React Native elements   | Rating stars are from this                                                         |
-|    React Native youtube   | Get trailer from Youtube                                                           |
+|        React Native       |Build Native Mobile Apps using JavaScript and React.                               |
+|  React Native Navigation  |App-wide support for 100% native navigation with an easy cross-platform interface. |
+| React Native vector-icons |Icon source                                                                        |
+|   React Native elements   |Rating stars are from this                                                         |
+|    React Native youtube   |Get trailer from Youtube                                                           |
 
 # Requirements
+```
 Node: v8.11.4
 npm: v5.6.0
-
+```
 # Installation
 Clone this repo
 

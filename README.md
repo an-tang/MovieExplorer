@@ -1,12 +1,15 @@
 # MovieExplorer
 A project for Mobile Programming (SE346)
+
 **Teacher**
+```
 Huynh Tuan Anh
+```
 **Ourteam**
 ```
-*Tang Hoang An 		- ID: 16520020
-*Dau Duc Viet Anh 	- ID: 16520029
-*Tran Xuan Bac 		- ID: 16520069
+Tang Hoang An 		- ID: 16520020
+Dau Duc Viet Anh 	- ID: 16520029
+Tran Xuan Bac 		- ID: 16520069
 ```
 # Description
 Discover all kinds of movie information and trailers

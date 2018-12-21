@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   ListView,
@@ -9,12 +8,22 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
-import {StackNavigator,} from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 class ListScreen extends Component {
-  static navigationOptions = {
-    title: 'Movies',
-  };
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.name}`,
+    headerTintColor: '#fff',
+    headerStyle: styles.headerStyle,
+    headerTitleStyle: styles.headerTitleStyle,
+    headerRight: (
+      <View style={styles.headerRight}>
+        <TouchableOpacity style={{ paddingHorizontal: 5 }} onPress={() => navigation.navigate('search')}>
+          <Icon name='search' size={25} color={'#fefefe'}> </Icon>
+        </TouchableOpacity>
+      </View>
+    )
+  });
 
   constructor() {
     super();
@@ -22,7 +31,7 @@ class ListScreen extends Component {
       genderId: '',
       page: '',
       total_pages: '',
-      results: this.listData([{original_language: "en", id: "null"}]),
+      results: this.listData([{ original_language: "en", id: "null" }]),
       isLoading: true,
     };
   }
@@ -57,14 +66,14 @@ class ListScreen extends Component {
 
   render() {
     const {navigate} = this.props.navigation;
-
     if (this.state.isLoading) {
       return (
         <View style={styles.loading}>
           <ActivityIndicator size="large" style={styles.colorLoading} />
         </View>
       )
-    } else {
+    } 
+    else {
       const width = (Dimensions.get('window').width / 3) - 4;
       return (
         <ListView
@@ -83,12 +92,6 @@ class ListScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -97,10 +100,27 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
+    backgroundColor: '#fff'
   },
   colorLoading: {
     color: "#0000ff",
   },
+  headerStyle: {
+    backgroundColor: 'rgb(47, 54, 61)',
+    shadowOpacity: 0
+  },
+  headerTitleStyle: {
+    flex: 1,
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: '#fefefe',
+    fontFamily: 'MuseoSansRounded-300',
+    fontWeight: '300',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    marginRight: 10
+  }
 });
 
 export default ListScreen;

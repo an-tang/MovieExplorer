@@ -3,13 +3,15 @@ Discover all kinds of movie information and trailers.
 
 This is a project for Mobile Programming (SE346).
 
-**Teacher**
+**Teacher:**
 Huynh Tuan Anh
 
-**Our team**
+**Our team:**
+```
 Tang Hoang An 	 - ID: 16520020
 Dau Duc Viet Anh - ID: 16520029
 Tran Xuan Bac 	 - ID: 16520069
+```
 
 # Image
 

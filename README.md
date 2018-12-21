@@ -5,7 +5,7 @@ A project for Mobile Programming (SE346)
 ```
 Huynh Tuan Anh
 ```
-**Ourteam**
+**Our team**
 ```
 Tang Hoang An 	 - ID: 16520020
 Dau Duc Viet Anh - ID: 16520029
@@ -33,9 +33,9 @@ npm: v5.6.0
 ```
 # Installation
 Clone this repo
-
+```
 $ git clone https://github.com/hoangan1903/MovieExplorer
-
+```
 Get api key - [TMDB](https://developers.themoviedb.org/3/getting-started/introduction) - [Youtube](https://developers.google.com/youtube/v3/getting-started)
 
 # About this demo

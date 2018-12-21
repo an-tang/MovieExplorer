@@ -1,26 +1,36 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   ListView,
   ActivityIndicator,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import Catelory from '../components/category.js'
 
 class Genre extends Component {
-  static navigationOptions = {
-    title: 'Genders',
-  };
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Genres',
+    headerStyle: styles.headerStyle,
+    headerTitleStyle: styles.headerTitleStyle,
+    headerRight: (
+      <View style={styles.headerRight}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('search')}>
+          <Icon name='search' size={25} color={'#fefefe'} style={{marginRight: 5}}> </Icon>
+        </TouchableOpacity>
+      </View>
+    )
+  });
 
   constructor() {
     super();
     this.state = {
-      dataSource: this.listData([{id: "id", name: "null"}]),
+      dataSource: this.listData([{ id: "id", name: "null" }]),
       isLoading: true,
     };
   }
-
   componentDidMount() {
     this.getGendersFromApi();
   }
@@ -30,7 +40,6 @@ class Genre extends Component {
     return ds.cloneWithRows(data);
   }
 
-    // Fetch api hướng dẫn ở https://facebook.github.io/react-native/docs/network.html
   getGendersFromApi() {
     return fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
       .then((response) => response.json())
@@ -54,15 +63,16 @@ class Genre extends Component {
           <ActivityIndicator size="large" style={styles.colorLoading} />
         </View>
       )
-    } else {
-        return (
+    }
+    else {
+      return (
         <ListView
           style={styles.container}
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            <TouchableOpacity onPress={() => navigate('listScreen', {id: rowData.id})}>
-              <Text style={styles.item}>{rowData.name}</Text>
-            </TouchableOpacity>
+            <Catelory name={rowData.name} id={rowData.id} navigate={navigate}
+            >
+            </Catelory>
           }
         />
       );
@@ -74,20 +84,32 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
   },
-  item: {
-    fontSize: 20,
-    margin: 2,
-    paddingBottom: 4,
-    color: '#000000',
-  },
   loading: {
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
+    backgroundColor: '#fff'
   },
   colorLoading: {
     color: "#0000ff",
   },
+  headerStyle: {
+    backgroundColor: 'rgb(47, 54, 61)',
+    shadowOpacity: 0
+  },
+  headerTitleStyle: {
+    flex: 1,
+    marginStart: 80,
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: '#fefefe',
+    fontFamily: 'MuseoSansRounded-300',
+    fontWeight: '100',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    marginRight: 5
+  }
 });
 
 export default Genre;

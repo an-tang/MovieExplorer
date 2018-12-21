@@ -5,8 +5,6 @@ import {
   Image,
   ActivityIndicator,
   Button,
-  Alert,
-  NetInfo
 } from 'react-native';
 
 class DetailScreen extends Component {
@@ -37,7 +35,6 @@ class DetailScreen extends Component {
       key: '',
       isOnline: null,
     };
-    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -67,25 +64,6 @@ class DetailScreen extends Component {
       });
   }
 
-  onClick() {
-    if (this.state.isOnline) {
-      if (this.state.key != '')
-        this.props.navigation.navigate('trailer', { key: this.state.key });
-      else {
-        Alert.alert(
-          'Notification',
-          'This film does not have official trailer',
-          [
-            { text: 'OK', onPress: () => console.log('OK pressed') }
-          ]
-        )
-      }
-    }
-    else {
-      this.alert();
-    }
-  }
-
   render() {
     const { navigate } = this.props.navigation;
     if (this.state.isLoading) {
@@ -107,17 +85,11 @@ class DetailScreen extends Component {
               bsSize="lg"
               title="Trailer"
               color='green'
-              onPress={this.onClick}
             />
             <Button
               bsSize="lg"
               title="Information"
               color='red'
-              onPress={() => {
-                this.state.isOnline ?
-                  navigate('information', { id: this.state.myId, title: this.state.title }) :
-                  this.alert()
-              }}
             />
           </View>
         </View>
@@ -149,7 +121,13 @@ const styles = StyleSheet.create({
   colorLoading: {
     color: "#0000ff",
   },
-
+  viewButton: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: '#000'
+  },
   headerStyle: {
     backgroundColor: '#000',
     shadowOpacity: 0

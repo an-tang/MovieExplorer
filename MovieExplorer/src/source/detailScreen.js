@@ -5,6 +5,8 @@ import {
   Image,
   ActivityIndicator,
   Button,
+  Alert,
+  NetInfo
 } from 'react-native';
 
 class DetailScreen extends Component {
@@ -41,7 +43,10 @@ class DetailScreen extends Component {
     const { navigation } = this.props;
     const id = navigation.getParam('id', 'NO-ID');
     this.getKey(id);
+  }
 
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
   }
 
   getKey(id) {
@@ -64,6 +69,9 @@ class DetailScreen extends Component {
       });
   }
 
+  onClick() {
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     if (this.state.isLoading) {
@@ -72,7 +80,8 @@ class DetailScreen extends Component {
           <ActivityIndicator size="large" style={styles.colorLoading} />
         </View>
       )
-    } else {
+    }
+    else {
       return (
         <View style={styles.container}>
           <View style={{ flex: 1 }}>
@@ -85,11 +94,13 @@ class DetailScreen extends Component {
               bsSize="lg"
               title="Trailer"
               color='green'
+              onPress={this.onClick}
             />
             <Button
               bsSize="lg"
               title="Information"
               color='red'
+              onPress={() => { navigate('information', { id: this.state.myId, title: this.state.title }) }}
             />
           </View>
         </View>
@@ -127,6 +138,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
     backgroundColor: '#000'
+  },
+  button: {
+    width: 80,
+    height: 30,
   },
   headerStyle: {
     backgroundColor: '#000',

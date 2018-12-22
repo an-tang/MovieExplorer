@@ -21,7 +21,8 @@ const RootStack = StackNavigator(
   {
     genre: {screen: Genre},
     listScreen: {screen: ListScreen},
-        detailScreen: { screen: DetailScreen },
+    detailScreen: { screen: DetailScreen },
+    information: {screen: Information},
   },
   {
     initialRouteName: 'genre',

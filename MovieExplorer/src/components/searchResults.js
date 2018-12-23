@@ -23,9 +23,10 @@ export default class Search extends Component {
     }
 
     componentDidMount() {
-
-        if (this.props.name != "null") {
-            this.getMoviesFromApi(this.props.name);
+        if (this.props.isOnline) {
+            if (this.props.name != "null") {
+                this.getMoviesFromApi(this.props.name);
+            }
         }
     }
 
@@ -52,24 +53,36 @@ export default class Search extends Component {
             });
     }
     render() {
-        if (this.props.showComponent) {
-            return (
-                <View>
-                    <ListView
-                        style={styles.container}
-                        dataSource={this.state.dataSource}
-                        renderRow={(rowData) =>
-                            <SearchItem
-                                id={rowData.id}
-                                imageUri={rowData.poster_path}
-                                name={rowData.title}
-                                date={rowData.release_date}
-                                navigate={this.props.navigate}
-                                isOnline={this.props.isOnline}
-                            />
-                        } />
-                </View>
+        if (this.props.isOnline) {
+            if (this.props.showComponent) {
+                return (
+                    <View>
+                        <ListView
+                            style={styles.container}
+                            dataSource={this.state.dataSource}
+                            renderRow={(rowData) =>
+                                <SearchItem
+                                    id={rowData.id}
+                                    imageUri={rowData.poster_path}
+                                    name={rowData.title}
+                                    date={rowData.release_date}
+                                    navigate={this.props.navigate}
+                                    isOnline={this.props.isOnline}
+                                />
+                            } />
+                    </View>
+                )
+            }
+        }
+        else {
+            Alert.alert(
+                'Notification',
+                'No internet connection!!!',
+                [
+                    { text: 'OK'}
+                ]
             )
+            return null;
         }
     }
 }

@@ -43,7 +43,33 @@ class DetailScreen extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     const id = navigation.getParam('id', 'NO-ID');
-    this.getKey(id);
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
+    NetInfo.isConnected.fetch().then(
+      (isConnected) => { this.setState({ isOnline: isConnected }); if (isConnected) this.getKey(id); }
+    );
+  }
+
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+  }
+
+  handleConnectionChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isOnline: true })
+      this.getKey(this.state.id);
+    }
+    else
+      this.setState({ isOnline: false })
+  };
+
+  alert() {
+    Alert.alert(
+      'Notification',
+      'No internet connection!!!',
+      [
+        { text: 'OK'}
+      ]
+    )
   }
 
   getKey(id) {
@@ -67,17 +93,21 @@ class DetailScreen extends Component {
   }
 
   onClick() {
-
-    if (this.state.key != '')
-      this.props.navigation.navigate('trailer', { key: this.state.key });
+    if (this.state.isOnline) {
+      if (this.state.key != '')
+        this.props.navigation.navigate('trailer', { key: this.state.key });
+      else {
+        Alert.alert(
+          'Notification',
+          'This film does not have official trailer',
+          [
+            { text: 'OK'}
+          ]
+        )
+      }
+    }
     else {
-      Alert.alert(
-        'Notification',
-        'This film does not have official trailer',
-        [
-          { text: 'OK', onPress: () => console.log('OK pressed') }
-        ]
-      )
+      this.alert();
     }
   }
 
@@ -110,7 +140,9 @@ class DetailScreen extends Component {
               title="Information"
               color='red'
               onPress={() => {
-                navigate('information', { id: this.state.myId, title: this.state.title })
+                this.state.isOnline ?
+                  navigate('information', { id: this.state.myId, title: this.state.title }) :
+                  this.alert()
               }}
             />
           </View>

@@ -40,14 +40,39 @@ class Genre extends Component {
     };
   }
   componentDidMount() {
-    this.getGenreFromApi();
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
+    NetInfo.isConnected.fetch().then(
+      (isConnected) => { this.setState({ isOnline: isConnected }); if (isConnected) this.getGenreFromApi(); }
+    );
   }
+
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+  }
+
+  handleConnectionChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isOnline: true })
+      this.getGenreFromApi();
+    }
+    else
+      this.setState({ isOnline: false })
+  };
 
   listData(data) {
     ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     return ds.cloneWithRows(data);
   }
 
+  alert() {
+    Alert.alert(
+      'Movie Explorer',
+      'No internet connection!!!',
+      [
+        { text: 'OK'}
+      ]
+    )
+  }
   getGenreFromApi() {
     return fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
       .then((response) => response.json())
@@ -69,7 +94,7 @@ class Genre extends Component {
         'Notification',
         'No internet connection!!!',
         [
-          { text: 'OK' }
+          { text: 'OK'}
         ]
       )
     }

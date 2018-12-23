@@ -75,7 +75,6 @@ class DetailScreen extends Component {
     }
 
     render() {
-        // const { navigate } = this.props.navigation;
         if (this.state.isLoading) {
             return (
                 <View style={styles.loading}>
@@ -98,7 +97,7 @@ class DetailScreen extends Component {
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.text}>{this.state.vote_average}</Text>
                                 <Rating
-                                    style={{ paddingTop: 5, paddingLeft: 4 }}
+                                    style={{paddingTop: 5, paddingLeft: 4}}
                                     imageSize={20}
                                     readonly
                                     startingValue={1}
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 180,
-        width: 120,
+        width: '90%',
     },
     title: {
         fontSize: 20,
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#000',
     },
-    overviewText: {
+    overviewText:{
         fontSize: 16,
         color: '#000',
     }

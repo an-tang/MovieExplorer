@@ -7,6 +7,8 @@ import {
   Image,
   ActivityIndicator,
   Dimensions,
+  Alert,
+  NetInfo
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -39,16 +41,40 @@ class ListScreen extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     const genderId = navigation.getParam('id', 'NO-ID');
-    this.getMoviesFromApi(genderId);
-
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
+    NetInfo.isConnected.fetch().then(
+      (isConnected) => { this.setState({ isOnline: isConnected }); if(isConnected) this.getMoviesFromApi(genderId);}
+    );
   }
 
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+  }
+
+  handleConnectionChange = isConnected => {
+    if(isConnected)
+    {
+      this.setState({ isOnline: true })
+      this.getMoviesFromApi(genderId);
+    }
+    else 
+      this.setState({isOnline: false})
+  };
 
   listData(data) {
     ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     return ds.cloneWithRows(data);
   }
 
+  alert(){
+    Alert.alert(
+        'Notification',
+        'No internet connection!!!',
+        [
+            { text: 'OK'}
+        ]
+    )
+}
 
   getMoviesFromApi(id) {
     return fetch('https://api.themoviedb.org/3/genre/' + id + '/movies?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
@@ -83,7 +109,8 @@ class ListScreen extends Component {
           contentContainerStyle={styles.list}
           dataSource={this.state.results}
           renderRow={(rowData) =>
-            <TouchableOpacity onPress={() => navigate('detailScreen', { id: rowData.id, title: rowData.title })}>
+            <TouchableOpacity onPress={() => {this.state.isOnline? 
+            navigate('detailScreen', { id: rowData.id, title: rowData.title }): this.alert()}}>
               <Image style={{ width: width, height: 200, margin: 2 }}
                 source={{ uri: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + rowData.backdrop_path }} />
             </TouchableOpacity>

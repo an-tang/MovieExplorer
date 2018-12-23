@@ -15,7 +15,7 @@ export default class Trailer extends React.Component {
     }
     render() {
         return (
-            <View style={style.container}>
+            <View style={styles.container}>
                 <YouTube
                     videoId={this.props.navigation.state.params.key}
                     play={true}
@@ -33,7 +33,7 @@ export default class Trailer extends React.Component {
     }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',

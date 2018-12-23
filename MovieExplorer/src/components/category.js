@@ -5,6 +5,7 @@ import {
     View,
     ScrollView,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 import CatelogyCard from './catelogyCard.js';
 
@@ -13,6 +14,7 @@ class Catelory extends Component {
         super();
         this.state = {
             genderId: '',
+            isLoading: true,
             imageSoure: [],
             name: []
         };
@@ -41,6 +43,15 @@ class Catelory extends Component {
             });
     }
 
+    alert() {
+        Alert.alert(
+            'Notification',
+            'No internet connection!!!',
+            [
+                { text: 'OK'}
+            ]
+        )
+    }
     render() {
 
         return (
@@ -49,7 +60,11 @@ class Catelory extends Component {
                     <Text style={styles.name}>{this.props.name}</Text>
                     <TouchableOpacity
                         style={{ marginRight: 10 }}
-                        onPress={() => { this.props.navigate('listScreen', { id: this.state.genderId, name: this.props.name }) }}
+                        onPress={() => {
+                            this.props.isOnline ?
+                            this.props.navigate('listScreen', { id: this.state.genderId, name: this.props.name }) :
+                            this.alert()
+                        }}
                     >
                         <Text style={[styles.name, { paddingLeft: 160 }]}>Show more</Text>
                     </TouchableOpacity>
@@ -61,10 +76,10 @@ class Catelory extends Component {
 
                         <TouchableOpacity
                             onPress={() => {
-                                this.props.navigate('detailScreen', {
+                                this.props.isOnline ? this.props.navigate('detailScreen', {
                                     id: this.state.id[0],
                                     title: this.state.name[0]
-                                })
+                                }) : this.alert()
                             }}
                         >
                             <CatelogyCard
@@ -74,10 +89,10 @@ class Catelory extends Component {
 
                         <TouchableOpacity
                             onPress={() => {
-                                this.props.navigate('detailScreen', {
+                                this.props.isOnline ? this.props.navigate('detailScreen', {
                                     id: this.state.id[1],
                                     title: this.state.name[1]
-                                })
+                                }) : this.alert()
                             }}
                         >
                             <CatelogyCard
@@ -88,10 +103,10 @@ class Catelory extends Component {
 
                         <TouchableOpacity
                             onPress={() => {
-                                this.props.navigate('detailScreen', {
+                                this.props.isOnline ? this.props.navigate('detailScreen', {
                                     id: this.state.id[2],
                                     title: this.state.name[2]
-                                })
+                                }) : this.alert()
                             }}
                         >
                             <CatelogyCard
@@ -102,10 +117,10 @@ class Catelory extends Component {
 
                         <TouchableOpacity
                             onPress={() => {
-                                this.props.navigate('detailScreen', {
+                                this.props.isOnline ? this.props.navigate('detailScreen', {
                                     id: this.state.id[3],
                                     title: this.state.name[3]
-                                })
+                                }) : this.alert()
                             }}
                         >
                             <CatelogyCard
@@ -116,10 +131,10 @@ class Catelory extends Component {
 
                         <TouchableOpacity
                             onPress={() => {
-                                this.props.navigate('detailScreen', {
+                                this.props.isOnline ? this.props.navigate('detailScreen', {
                                     id: this.state.id[4],
                                     title: this.state.name[4]
-                                })
+                                }) : this.alert()
                             }}
                         >
                             <CatelogyCard
@@ -130,10 +145,10 @@ class Catelory extends Component {
 
                         <TouchableOpacity
                             onPress={() => {
-                                this.props.navigate('detailScreen', {
+                                this.props.isOnline ? this.props.navigate('detailScreen', {
                                     id: this.state.id[5],
                                     title: this.state.name[5]
-                                })
+                                }) : this.alert()
                             }}
                         >
                             <CatelogyCard

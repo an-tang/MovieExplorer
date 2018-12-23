@@ -4,6 +4,7 @@ import {
     View,
     TouchableOpacity,
     TextInput,
+    NetInfo,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SearchResults from '../components/searchResults.js';
@@ -21,6 +22,7 @@ export default class Search extends Component {
         this.state = {
             text: '',
             showComponent: false,
+            isOnline: null,
         };
         this.onIconClick = this.onIconClick.bind(this);
     }
@@ -30,6 +32,27 @@ export default class Search extends Component {
                 showComponent: true,
             });
     }
+
+
+    componentDidMount() {
+        NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
+        NetInfo.isConnected.fetch().then(
+            (isConnected) => { this.setState({ isOnline: isConnected });  }
+        );
+       
+    }
+
+    componentWillUnmount() {
+        NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+    }
+
+    handleConnectionChange = isConnected => {
+        if (isConnected) {
+            this.setState({ isOnline: true, showComponent: false })
+        }
+        else
+            this.setState({ isOnline: false })
+    };
 
     render() {
         const { navigate } = this.props.navigation;

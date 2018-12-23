@@ -10,6 +10,7 @@ import {StackNavigator,} from 'react-navigation';
 import Genre from './src/source/genre.js'
 import ListScreen from './src/source/listScreen.js';
 import DetailScreen from './src/source/detailScreen.js';
+import Trailer from './src/source/trailerScreen.js';
 import Information from './src/source/information.js';
 import Search from './src/source/search.js';
 import About from './src/source/about.js';
@@ -25,6 +26,7 @@ const RootStack = StackNavigator(
     genre: {screen: Genre},
     listScreen: {screen: ListScreen},
     detailScreen: { screen: DetailScreen },
+    trailer: {screen: Trailer},
     information: {screen: Information},
     search: {screen: Search},
     about: {screen: About},

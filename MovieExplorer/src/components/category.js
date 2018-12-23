@@ -48,8 +48,8 @@ class Catelory extends Component {
                 <View style={{ flex: 0, backgroundColor: 'white', flexDirection: 'row' }}>
                     <Text style={styles.name}>{this.props.name}</Text>
                     <TouchableOpacity
-                    style={{marginRight: 10}}
-                        onPress={() => {this.props.navigate('listScreen', { id: this.state.genderId, name: this.props.name }) }}
+                        style={{ marginRight: 10 }}
+                        onPress={() => { this.props.navigate('listScreen', { id: this.state.genderId, name: this.props.name }) }}
                     >
                         <Text style={[styles.name, { paddingLeft: 160 }]}>Show more</Text>
                     </TouchableOpacity>
@@ -60,8 +60,12 @@ class Catelory extends Component {
                         showsHorizontalScrollIndicator={false}>
 
                         <TouchableOpacity
-                            onPress={() => { this.props.navigate('detailScreen', { id: this.state.id[0], 
-                            title: this.state.name[0] })}}
+                            onPress={() => {
+                                this.props.navigate('detailScreen', {
+                                    id: this.state.id[0],
+                                    title: this.state.name[0]
+                                })
+                            }}
                         >
                             <CatelogyCard
                                 imageUri={this.state.imageSoure[0]}>
@@ -69,8 +73,12 @@ class Catelory extends Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => {this.props.navigate('detailScreen', { id: this.state.id[1], 
-                            title: this.state.name[1] })}}
+                            onPress={() => {
+                                this.props.navigate('detailScreen', {
+                                    id: this.state.id[1],
+                                    title: this.state.name[1]
+                                })
+                            }}
                         >
                             <CatelogyCard
                                 imageUri={this.state.imageSoure[1]}
@@ -79,8 +87,12 @@ class Catelory extends Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => {this.props.navigate('detailScreen', { id: this.state.id[2], 
-                            title: this.state.name[2] })}}
+                            onPress={() => {
+                                this.props.navigate('detailScreen', {
+                                    id: this.state.id[2],
+                                    title: this.state.name[2]
+                                })
+                            }}
                         >
                             <CatelogyCard
                                 imageUri={this.state.imageSoure[2]}
@@ -89,8 +101,12 @@ class Catelory extends Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => {this.props.navigate('detailScreen', { id: this.state.id[3], 
-                            title: this.state.name[3] })}}
+                            onPress={() => {
+                                this.props.navigate('detailScreen', {
+                                    id: this.state.id[3],
+                                    title: this.state.name[3]
+                                })
+                            }}
                         >
                             <CatelogyCard
                                 imageUri={this.state.imageSoure[3]}
@@ -99,8 +115,12 @@ class Catelory extends Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => {this.props.navigate('detailScreen', { id: this.state.id[4], 
-                            title: this.state.name[4] })}}
+                            onPress={() => {
+                                this.props.navigate('detailScreen', {
+                                    id: this.state.id[4],
+                                    title: this.state.name[4]
+                                })
+                            }}
                         >
                             <CatelogyCard
                                 imageUri={this.state.imageSoure[4]}
@@ -109,8 +129,12 @@ class Catelory extends Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => {this.props.navigate('detailScreen', { id: this.state.id[5], 
-                            title: this.state.name[5] })}}
+                            onPress={() => {
+                                this.props.navigate('detailScreen', {
+                                    id: this.state.id[5],
+                                    title: this.state.name[5]
+                                })
+                            }}
                         >
                             <CatelogyCard
                                 imageUri={this.state.imageSoure[5]}
@@ -131,7 +155,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontSize: 15,
         fontWeight: '500',
-        color:'#000'
+        color: '#000'
     },
 })
 export default Catelory;

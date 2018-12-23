@@ -37,15 +37,18 @@ class ListScreen extends Component {
   }
 
   componentDidMount() {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     const genderId = navigation.getParam('id', 'NO-ID');
     this.getMoviesFromApi(genderId);
+
   }
 
+
   listData(data) {
-    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     return ds.cloneWithRows(data);
   }
+
 
   getMoviesFromApi(id) {
     return fetch('https://api.themoviedb.org/3/genre/' + id + '/movies?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
@@ -65,14 +68,14 @@ class ListScreen extends Component {
   }
 
   render() {
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
     if (this.state.isLoading) {
       return (
         <View style={styles.loading}>
           <ActivityIndicator size="large" style={styles.colorLoading} />
         </View>
       )
-    } 
+    }
     else {
       const width = (Dimensions.get('window').width / 3) - 4;
       return (
@@ -80,9 +83,9 @@ class ListScreen extends Component {
           contentContainerStyle={styles.list}
           dataSource={this.state.results}
           renderRow={(rowData) =>
-            <TouchableOpacity onPress={() => navigate('detailScreen', {id: rowData.id})}>
-              <Image style={{width: width, height: 200, margin: 2}}
-                source={{uri: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + rowData.backdrop_path}} />
+            <TouchableOpacity onPress={() => navigate('detailScreen', { id: rowData.id, title: rowData.title })}>
+              <Image style={{ width: width, height: 200, margin: 2 }}
+                source={{ uri: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + rowData.backdrop_path }} />
             </TouchableOpacity>
           }
         />

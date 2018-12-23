@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 
 class SearchItem extends Component {
-    
+
     render() {
         return (
-            <TouchableOpacity style={{marginTop: 5}}
+            <TouchableOpacity style={{ marginTop: 5 }}
                 onPress={() => this.props.navigate('detailScreen',
-                { id: this.props.id, title: this.props.name})}
+                    { id: this.props.id, title: this.props.name })}
             >
                 <View style={styles.row}>
                     <View style={{ flex: 3 }}>

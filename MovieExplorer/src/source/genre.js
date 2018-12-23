@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   ListView,
   ActivityIndicator,
+  NetInfo,
+  Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Catelory from '../components/category.js'
@@ -18,11 +20,11 @@ class Genre extends Component {
       <View style={styles.headerRight}>
         <TouchableOpacity
           onPress={() => navigation.navigate('search')}>
-          <Icon name='search' size={25} color={'#fefefe'} style={{marginRight: 5}}> </Icon>
+          <Icon name='search' size={25} color={'#fefefe'} style={{ marginRight: 5 }}> </Icon>
         </TouchableOpacity>
 
         <TouchableOpacity
-        >
+          onPress={() => navigation.navigate('about')}>
           <Icon name='info' size={25} color={'#fefefe'}> </Icon>
         </TouchableOpacity>
       </View>
@@ -34,18 +36,19 @@ class Genre extends Component {
     this.state = {
       dataSource: this.listData([{ id: "id", name: "null" }]),
       isLoading: true,
+      isOnline: null,
     };
   }
   componentDidMount() {
-    this.getGendersFromApi();
+    this.getGenreFromApi();
   }
 
   listData(data) {
-    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     return ds.cloneWithRows(data);
   }
 
-  getGendersFromApi() {
+  getGenreFromApi() {
     return fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=f7485fa464693c4a4b1b3e4b580e4d40')
       .then((response) => response.json())
       .then((responseJson) => {
@@ -60,7 +63,16 @@ class Genre extends Component {
   }
 
   render() {
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
+    if (this.state.isOnline === false) {
+      Alert.alert(
+        'Notification',
+        'No internet connection!!!',
+        [
+          { text: 'OK' }
+        ]
+      )
+    }
 
     if (this.state.isLoading) {
       return (
@@ -76,13 +88,14 @@ class Genre extends Component {
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
             <Catelory name={rowData.name} id={rowData.id} navigate={navigate}
-            >
+              isOnline={this.state.isOnline}>
             </Catelory>
           }
         />
       );
     }
   }
+
 }
 
 const styles = StyleSheet.create({

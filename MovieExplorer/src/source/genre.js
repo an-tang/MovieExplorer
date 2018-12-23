@@ -20,6 +20,11 @@ class Genre extends Component {
           onPress={() => navigation.navigate('search')}>
           <Icon name='search' size={25} color={'#fefefe'} style={{marginRight: 5}}> </Icon>
         </TouchableOpacity>
+
+        <TouchableOpacity
+        >
+          <Icon name='info' size={25} color={'#fefefe'}> </Icon>
+        </TouchableOpacity>
       </View>
     )
   });

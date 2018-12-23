@@ -11,6 +11,8 @@ import Genre from './src/source/genre.js'
 import ListScreen from './src/source/listScreen.js';
 import DetailScreen from './src/source/detailScreen.js';
 import Information from './src/source/information.js';
+import Search from './src/source/search.js';
+
 export default class App extends Component {
   render() {
     return <RootStack/>;
@@ -23,6 +25,7 @@ const RootStack = StackNavigator(
     listScreen: {screen: ListScreen},
     detailScreen: { screen: DetailScreen },
     information: {screen: Information},
+    search: {screen: Search},
   },
   {
     initialRouteName: 'genre',

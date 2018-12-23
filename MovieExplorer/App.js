@@ -12,6 +12,7 @@ import ListScreen from './src/source/listScreen.js';
 import DetailScreen from './src/source/detailScreen.js';
 import Information from './src/source/information.js';
 import Search from './src/source/search.js';
+import About from './src/source/about.js';
 
 export default class App extends Component {
   render() {
@@ -26,6 +27,7 @@ const RootStack = StackNavigator(
     detailScreen: { screen: DetailScreen },
     information: {screen: Information},
     search: {screen: Search},
+    about: {screen: About},
   },
   {
     initialRouteName: 'genre',

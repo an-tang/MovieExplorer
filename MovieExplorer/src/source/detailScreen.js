@@ -37,16 +37,13 @@ class DetailScreen extends Component {
       key: '',
       isOnline: null,
     };
+ this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
     const { navigation } = this.props;
     const id = navigation.getParam('id', 'NO-ID');
     this.getKey(id);
-  }
-
-  componentWillUnmount() {
-    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
   }
 
   getKey(id) {
@@ -70,6 +67,18 @@ class DetailScreen extends Component {
   }
 
   onClick() {
+
+      if (this.state.key != '')
+        this.props.navigation.navigate('trailer', { key: this.state.key });
+      else {
+        Alert.alert(
+          'Notification',
+          'This film does not have official trailer',
+          [
+            { text: 'OK', onPress: () => console.log('OK pressed') }
+          ]
+        )
+      }
   }
 
   render() {
@@ -100,7 +109,8 @@ class DetailScreen extends Component {
               bsSize="lg"
               title="Information"
               color='red'
-              onPress={() => { navigate('information', { id: this.state.myId, title: this.state.title }) }}
+              onPress={() => {navigate('information', { id: this.state.myId, title: this.state.title })
+              }}
             />
           </View>
         </View>

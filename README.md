@@ -15,7 +15,7 @@ Tran Xuan Bac 	 - ID: 16520069
 
 # Screenshots
 ![0_3](https://user-images.githubusercontent.com/37280485/50424804-385cbc00-089d-11e9-8845-c843de407dae.jpg)
-![1_3](https://user-images.githubusercontent.com/37280485/50424862-3810f080-089e-11e9-99f3-10e1f82025a0.jpg)
+![1_3](https://user-images.githubusercontent.com/37280485/50424990-fd5c8780-08a0-11e9-97ac-a5179352faa2.jpg)
 
 # What's included
 

@@ -21,7 +21,7 @@ class DetailScreen extends Component {
                     <Text style={styles.text}>Movie Explorer </Text>
                     <Text style={styles.subject}>A project for </Text>
                     <Text style={styles.subject}>Mobile Programming (SE346)</Text>
-                    <Text style={styles.framework}>Powered by ReactNative v0.57.0</Text>
+                    <Text style={styles.framework}>Built with ReactNative v0.57.0</Text>
                     <Text style={styles.ourteam}>Teacher:</Text>
                     <Text style={styles.name}>Huynh Tuan Anh</Text>
                     <Text style={styles.ourteam}>Our team:</Text>
